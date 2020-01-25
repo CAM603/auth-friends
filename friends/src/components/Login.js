@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { axiosWithAuth } from '../utils/axiosWithAuth';
+
 const Login = (props) => {
     const [loading, setLoading] = useState(false);
     const [credentials, setCredentials] = useState({
@@ -16,14 +18,24 @@ const Login = (props) => {
 
     const login = event => {
         event.preventDefault()
-        // Custom axios call here
+        setLoading(true)
+        
+        axiosWithAuth()
+        .post('/login', credentials)
+        .then(res => {
+            localStorage.setItem('token', res.data.payload);
+            setLoading(false)
+
+            //this.props.history.push('/friendsList')
+        })
+        .catch(err => console.log(err))
     }
 
     return (
         <div>
             <h1>Login</h1>
             <div>
-                <form>
+                <form onSubmit={login}>
                     <input 
                     type="text"
                     placeholder="username"
@@ -38,7 +50,7 @@ const Login = (props) => {
                     value={credentials.password}
                     onChange={handleChanges}
                     />
-                    <button>Submit!</button>
+                    <button>{loading ? 'loading' : 'Submit!'}</button>
                 </form>
             </div>
         </div>
