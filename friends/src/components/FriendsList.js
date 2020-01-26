@@ -8,7 +8,9 @@ const FriendsList = (props) => {
     const [friends, setFriends] = useState([]);
     const [loading, setLoading] = useState(false);
     const [editing, setEditing] = useState(false);
-    const [editFriend, setEditFriend] = useState({})
+    const initialState = {id: null, name: '', age: '', email: ''}
+    const [currentFriend, setCurrentFriend] = useState(initialState)
+    
     
     useEffect(() => {
         getFriends()
@@ -37,9 +39,18 @@ const FriendsList = (props) => {
         .catch(err => console.log(err))
     }
 
-    const updateFriend = (friend) => {
-        setEditing(true)
-        setEditFriend(friend)
+    const updatedFriend = (id, updatedFriend) => {
+        setEditing(false)
+        axiosWithAuth()
+        .put(`friends/${id}`, updatedFriend)
+        .then(res => {
+            setFriends(res.data)
+        })
+        .catch(err => console.log(err))
+    }
+    const editFriend = friend => {
+        setEditing(true);
+        setCurrentFriend({id: friend.id, name: friend.name, age: friend.age, email: friend.email})
     }
 
     return (
@@ -53,15 +64,19 @@ const FriendsList = (props) => {
                     <p>{friend.age}</p>
                     <p>{friend.email}</p>
                     <button onClick={() => deleteFriend(friend.id)}>Delete</button>
-                    <button onClick={() => updateFriend(friend)}>Edit</button>
+                    <button onClick={() => editFriend(friend)}>Edit</button>
                 </div>
             ))}
-            {editing ? <EditFriend 
-            setFriends={setFriends} 
-            friend={editFriend}
+            {editing 
+            ? 
+            <EditFriend 
+            editing={editing}
             setEditing={setEditing}
+            currentFriend={currentFriend}
+            updatedFriend={updatedFriend}
             />
-            : <AddFriend setFriends={setFriends}/>}
+            : 
+            <AddFriend setFriends={setFriends}/>}
             
             
         </div>
