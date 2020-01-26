@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { Link } from 'react-router-dom';
 import AddFriend from './AddFriend';
 
 const FriendsList = (props) => {
@@ -37,8 +38,10 @@ const FriendsList = (props) => {
         <div>
             <h1>Gang's all here</h1>
             {loading ? <h1>Loading...</h1> : friends.map(friend => (
-                <div>
-                    <p>{friend.name}</p>
+                <div key={friend.id}>
+                    <Link to={`friendsList/${friend.id}`}>
+                        <p>{friend.name}</p>
+                    </Link>
                     <p>{friend.age}</p>
                     <p>{friend.email}</p>
                     <button onClick={() => deleteFriend(friend.id)}>Delete</button>
