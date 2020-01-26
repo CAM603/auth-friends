@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import AddFriend from './AddFriend';
 
 const FriendsList = (props) => {
     const [friends, setFriends] = useState([]);
@@ -9,48 +10,30 @@ const FriendsList = (props) => {
     },[])
 
     const getFriends = () => {
+        setLoading(true)
         axiosWithAuth()
         .get('/friends')
         .then(res => {
             setFriends(res.data)
+            setLoading(false)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            setLoading(false)
+            console.log(err)
+        })
     }
 
     return (
         <div>
             <h1>Gang's all here</h1>
-            {friends.map(friend => (
+            {loading ? <h1>Loading...</h1> : friends.map(friend => (
                 <div>
                     <p>{friend.name}</p>
                     <p>{friend.age}</p>
                     <p>{friend.email}</p>
                 </div>
             ))}
-            <div>
-                <p>Cameron</p>
-                <span>🧑🏻‍🦰</span>
-            </div>
-            <div>
-                <p>Kim</p>
-                <span>👩🏻‍🦰</span>
-            </div>
-            <div>
-                <p>Kaylyn</p>
-                <span>👧🏻</span>
-            </div>
-            <div>
-                <p>Bob</p>
-                <span>🧔🏼</span>
-            </div>
-            <div>
-                <p>Sally</p>
-                <span>👱🏽‍♀️</span>
-            </div>
-            <div>
-                <p>Mike</p>
-                <span>👨🏿‍🦱</span>
-            </div>
+            <AddFriend setFriends={setFriends}/>
         </div>
     )
 }
