@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-import { axiosWithAuth } from '../utils/axiosWithAuth'
-
-const AddFriend = (props) => {
+const EditFriend = (props) => {
     const [friend, setFriend] = useState({
-        name: '',
-        age: '',
-        email: ''
+        name: props.friend.name,
+        age: props.friend.age,
+        email: props.friend.email
     })
+    console.log(props.friend)
 
     const handleChanges = (event) => {
         setFriend({
@@ -18,8 +18,9 @@ const AddFriend = (props) => {
     const handleSubmit = event => {
         event.preventDefault()
         axiosWithAuth()
-        .post('friends', friend)
+        .put(`friends/${props.friend.id}`, friend)
         .then(res => {
+            props.setEditing(false)
             props.setFriends(res.data)
             setFriend({
                 name: '',
@@ -32,33 +33,30 @@ const AddFriend = (props) => {
     
     return (
         <div>
-            <h1>Add Friend</h1>
+            <h1>Edit Friend</h1>
             <form onSubmit={handleSubmit}>
                 <input
-                type="text"
-                value={friend.name}
-                placeholder="name"
+                placeholder={props.friend.name}
                 onChange={handleChanges}
+                value={friend.name}
                 name="name"
                 />
                 <input
-                type="text"
-                value={friend.age}
-                placeholder="age"
+                placeholder={props.friend.age}
                 onChange={handleChanges}
+                value={friend.age}
                 name="age"
                 />
                 <input
-                type="text"
-                value={friend.email}
-                placeholder="email"
+                placeholder={props.friend.email}
                 onChange={handleChanges}
+                value={friend.email}
                 name="email"
                 />
-                <button>Add</button>
+                <button>Update</button>
             </form>
         </div>
     )
 }
 
-export default AddFriend;
+export default EditFriend;

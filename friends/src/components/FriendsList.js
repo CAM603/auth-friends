@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { Link } from 'react-router-dom';
 import AddFriend from './AddFriend';
+import EditFriend from './EditFriend';
 
 const FriendsList = (props) => {
     const [friends, setFriends] = useState([]);
-    const [loading, setLoading] = useState(false)
-
+    const [loading, setLoading] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [editFriend, setEditFriend] = useState({})
+    
     useEffect(() => {
         getFriends()
     },[])
@@ -34,6 +37,11 @@ const FriendsList = (props) => {
         .catch(err => console.log(err))
     }
 
+    const updateFriend = (friend) => {
+        setEditing(true)
+        setEditFriend(friend)
+    }
+
     return (
         <div>
             <h1>Gang's all here</h1>
@@ -45,9 +53,17 @@ const FriendsList = (props) => {
                     <p>{friend.age}</p>
                     <p>{friend.email}</p>
                     <button onClick={() => deleteFriend(friend.id)}>Delete</button>
+                    <button onClick={() => updateFriend(friend)}>Edit</button>
                 </div>
             ))}
-            <AddFriend setFriends={setFriends}/>
+            {editing ? <EditFriend 
+            setFriends={setFriends} 
+            friend={editFriend}
+            setEditing={setEditing}
+            />
+            : <AddFriend setFriends={setFriends}/>}
+            
+            
         </div>
     )
 }
