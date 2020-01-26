@@ -5,6 +5,7 @@ import AddFriend from './AddFriend';
 const FriendsList = (props) => {
     const [friends, setFriends] = useState([]);
     const [loading, setLoading] = useState(false)
+
     useEffect(() => {
         getFriends()
     },[])
@@ -23,6 +24,15 @@ const FriendsList = (props) => {
         })
     }
 
+    const deleteFriend = (id) => {
+        axiosWithAuth()
+        .delete(`/friends/${id}`)
+        .then(res => {
+            setFriends(res.data)
+        })
+        .catch(err => console.log(err))
+    }
+
     return (
         <div>
             <h1>Gang's all here</h1>
@@ -31,6 +41,7 @@ const FriendsList = (props) => {
                     <p>{friend.name}</p>
                     <p>{friend.age}</p>
                     <p>{friend.email}</p>
+                    <button onClick={() => deleteFriend(friend.id)}>Delete</button>
                 </div>
             ))}
             <AddFriend setFriends={setFriends}/>

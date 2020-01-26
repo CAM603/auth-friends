@@ -21,6 +21,11 @@ const AddFriend = (props) => {
         .post('friends', friend)
         .then(res => {
             props.setFriends(res.data)
+            setFriend({
+                name: '',
+                age: '',
+                email: ''
+            })
         })
         .catch(err => console.log(err))
     }
