@@ -6,6 +6,7 @@ const Navigation = () => {
         <div>
             <Link to="/login">
                 <p>Login</p>
+                <p onClick={() => localStorage.removeItem('token')}>Logout</p>
             </Link>
             <Link to="/">
                 <p>Home</p>
