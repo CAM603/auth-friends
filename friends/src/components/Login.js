@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { connect } from 'react-redux';
+import { login } from '../actions/loginAction';
+import { Redirect } from 'react-router';
 
 const Login = (props) => {
-    const [loading, setLoading] = useState(false);
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
@@ -18,22 +18,15 @@ const Login = (props) => {
 
     const login = event => {
         event.preventDefault()
-        setLoading(true)
-        
-        axiosWithAuth()
-        .post('/login', credentials)
-        .then(res => {
-            localStorage.setItem('token', res.data.payload);
-            setLoading(false)
-
-            props.history.push('/friendsList')
-        })
-        .catch(err => {
-            setLoading(false)
-            console.log(err)
+        props.login(credentials);
+        setCredentials({
+            username: '',
+            password: ''
         })
     }
-
+    if(localStorage.getItem('token')) {
+        return <Redirect to="/friendsList"/>
+    }
     return (
         <div>
             <h1>Login</h1>
@@ -53,11 +46,15 @@ const Login = (props) => {
                     value={credentials.password}
                     onChange={handleChanges}
                     />
-                    <button>{loading ? 'loading' : 'Submit!'}</button>
+                    <button>{props.loading ? 'loading' : 'Submit!'}</button>
                 </form>
             </div>
         </div>
     )
 }
-
-export default Login;
+const mapStateToProps = state => {
+    return {
+        loading: state.loginReducer.loading
+    }
+}
+export default connect(mapStateToProps, {login})(Login);

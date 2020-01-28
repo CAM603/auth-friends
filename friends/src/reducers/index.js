@@ -3,8 +3,10 @@ import { friendsReducer } from './friendsReducer';
 import { friendReducer } from './friendReducer';
 import { loginReducer } from './loginReducer';
 
-export default combineReducers({
+const rootReducer = combineReducers({
     friendsReducer,
     friendReducer,
     loginReducer
 })
+
+export default rootReducer;
