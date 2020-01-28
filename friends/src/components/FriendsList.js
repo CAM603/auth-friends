@@ -54,33 +54,31 @@ const FriendsList = (props) => {
     }
 
     return (
-        <div>
-            <h1>Gang's all here</h1>
-            {loading ? <h1>Loading...</h1> : friends.map(friend => (
-                <div key={friend.id}>
-                    <Link to={`friendsList/${friend.id}`}>
-                        <p>{friend.name}</p>
-                    </Link>
-                    <p>{friend.age}</p>
-                    <p>{friend.email}</p>
-                    <p>{friend.picture}</p>
-                    <button onClick={() => deleteFriend(friend.id)}>Delete</button>
-                    <button onClick={() => editFriend(friend)}>Edit</button>
-                </div>
-            ))}
-            {editing 
-            ? 
-            <EditFriend 
-            editing={editing}
-            setEditing={setEditing}
-            currentFriend={currentFriend}
-            updatedFriend={updatedFriend}
-            />
-            : 
-            <AddFriend setFriends={setFriends}/>}
-            
-            
-        </div>
+            <div>
+                <h1>Gang's all here</h1>
+                {loading ? <h1>Loading...</h1> : friends.map(friend => (
+                    <div key={friend.id}>
+                        <Link to={`friendsList/${friend.id}`}>
+                            <p>{friend.name}</p>
+                        </Link>
+                        <p>{friend.age}</p>
+                        <p>{friend.email}</p>
+                        <p>{friend.picture}</p>
+                        <button onClick={() => deleteFriend(friend.id)}>Delete</button>
+                        <button onClick={() => editFriend(friend)}>Edit</button>
+                    </div>
+                ))}
+                {editing 
+                ? 
+                <EditFriend 
+                editing={editing}
+                setEditing={setEditing}
+                currentFriend={currentFriend}
+                updatedFriend={updatedFriend}
+                />
+                : 
+                <AddFriend setFriends={setFriends}/>}
+            </div>
     )
 }
 
