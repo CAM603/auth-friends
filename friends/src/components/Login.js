@@ -24,7 +24,7 @@ const Login = (props) => {
             password: ''
         })
     }
-    if(localStorage.getItem('token')) {
+    if(props.loggedIn) {
         return <Redirect to="/friendsList"/>
     }
     return (
@@ -54,7 +54,8 @@ const Login = (props) => {
 }
 const mapStateToProps = state => {
     return {
-        loading: state.loginReducer.loading
+        loading: state.loginReducer.loading,
+        loggedIn: state.loginReducer.loggedIn
     }
 }
 export default connect(mapStateToProps, {login})(Login);

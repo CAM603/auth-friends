@@ -17,16 +17,3 @@ export const login = credentials => dispatch => {
             dispatch({ type: LOGIN_FAILURE, payload: error.response })
         })
 }
-
-// axiosWithAuth()
-//         .post('/login', credentials)
-//         .then(res => {
-//             localStorage.setItem('token', res.data.payload);
-//             setLoading(false)
-
-//             props.history.push('/friendsList')
-//         })
-//         .catch(err => {
-//             setLoading(false)
-//             console.log(err)
-//         })
