@@ -8,25 +8,28 @@ import Home from './components/Home';
 import FriendsList from './components/FriendsList';
 import PrivateRoute from './components/PrivateRoute';
 import Friend from './components/Friend';
+import { FriendsProvider } from './contexts/FriendsContext';
 
 function App() {
   return (
     <div className="App">
-      <Navigation/>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login" component={Login}/>
-        <PrivateRoute 
-        exact path="/friendsList" 
-        component={FriendsList}
-        />
-        <PrivateRoute 
-        exact path="/friendsList/:id"
-        component={Friend}
-        />
-      </Switch>
+      <FriendsProvider>
+        <Navigation/>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/login" component={Login}/>
+          <PrivateRoute 
+          exact path="/friendsList" 
+          component={FriendsList}
+          />
+          <PrivateRoute 
+          exact path="/friendsList/:id"
+          component={Friend}
+          />
+        </Switch>
+      </FriendsProvider>
     </div>
   );
 }

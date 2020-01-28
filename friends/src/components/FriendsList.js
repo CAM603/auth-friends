@@ -1,57 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { Link } from 'react-router-dom';
 import AddFriend from './AddFriend';
 import EditFriend from './EditFriend';
+import { FriendsContext } from '../contexts/FriendsContext';
 
 const FriendsList = (props) => {
-    const [friends, setFriends] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [editing, setEditing] = useState(false);
-    const initialState = {id: null, name: '', age: '', email: '', picture: ''}
-    const [currentFriend, setCurrentFriend] = useState(initialState)
-    
-    
+    const { value, value2, value3, value4, value5, value6, value7, value8 } = useContext(FriendsContext);
+    const getFriends = value;
+    const [friends, setFriends] = value2;
+    const loading = value3;
+    const deleteFriend = value4;
+    const updatedFriend = value5;
+    const [editing, setEditing] = value6;
+    const editFriend = value7;
+    const currentFriend = value8;
+
     useEffect(() => {
         getFriends()
     },[])
-
-    const getFriends = () => {
-        setLoading(true)
-        axiosWithAuth()
-        .get('/friends')
-        .then(res => {
-            setFriends(res.data)
-            setLoading(false)
-        })
-        .catch(err => {
-            setLoading(false)
-            console.log(err)
-        })
-    }
-
-    const deleteFriend = (id) => {
-        axiosWithAuth()
-        .delete(`/friends/${id}`)
-        .then(res => {
-            setFriends(res.data)
-        })
-        .catch(err => console.log(err))
-    }
-
-    const updatedFriend = (id, updatedFriend) => {
-        setEditing(false)
-        axiosWithAuth()
-        .put(`friends/${id}`, updatedFriend)
-        .then(res => {
-            setFriends(res.data)
-        })
-        .catch(err => console.log(err))
-    }
-    const editFriend = friend => {
-        setEditing(true);
-        setCurrentFriend({id: friend.id, name: friend.name, age: friend.age, email: friend.email, picture: friend.picture})
-    }
 
     return (
             <div>
@@ -77,7 +44,9 @@ const FriendsList = (props) => {
                 updatedFriend={updatedFriend}
                 />
                 : 
-                <AddFriend setFriends={setFriends}/>}
+                <AddFriend 
+                setFriends={setFriends}
+                />}
             </div>
     )
 }
