@@ -25,7 +25,8 @@ const AddFriend = (props) => {
             setFriend({
                 name: '',
                 age: '',
-                email: ''
+                email: '',
+                picture: ''
             })
         })
         .catch(err => console.log(err))
