@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AddFriend from './AddFriend';
 import EditFriend from './EditFriend';
 import { FriendsContext } from '../contexts/FriendsContext';
 
 const FriendsList = (props) => {
-    const { value, value2, value3, value4, value5, value6, value7, value8 } = useContext(FriendsContext);
+    const { value, value2, value3, value4, value6, value7 } = useContext(FriendsContext);
     const getFriends = value;
     const [friends, setFriends] = value2;
     const loading = value3;
     const deleteFriend = value4;
-    const updatedFriend = value5;
-    const [editing, setEditing] = value6;
+    const [editing] = value6;
     const editFriend = value7;
-    const currentFriend = value8;
+    
 
     useEffect(() => {
         getFriends()
@@ -37,12 +35,7 @@ const FriendsList = (props) => {
                 ))}
                 {editing 
                 ? 
-                <EditFriend 
-                editing={editing}
-                setEditing={setEditing}
-                currentFriend={currentFriend}
-                updatedFriend={updatedFriend}
-                />
+                <EditFriend/>
                 : 
                 <AddFriend 
                 setFriends={setFriends}

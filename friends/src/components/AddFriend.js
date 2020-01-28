@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 const AddFriend = (props) => {
+    
     const [friend, setFriend] = useState({
         name: '',
         age: '',

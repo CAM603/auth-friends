@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { FriendsContext } from '../contexts/FriendsContext';
 
 const EditFriend = (props) => {
-    const [friend, setFriend] = useState(props.currentFriend)
+    const { value5, value8 } = useContext(FriendsContext)
     
+    const currentFriend = value8;
+    const updatedFriend = value5;
+    const [friend, setFriend] = useState(currentFriend)
 
     const handleChanges = (event) => {
         setFriend({
@@ -16,7 +20,7 @@ const EditFriend = (props) => {
             <h1>Edit Friend</h1>
             <form onSubmit={(event) => {
                 event.preventDefault()
-                props.updatedFriend(friend.id, friend)
+                updatedFriend(friend.id, friend)
             }}>
                 <input
                 placeholder={friend.name}
