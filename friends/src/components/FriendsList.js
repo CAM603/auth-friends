@@ -37,9 +37,7 @@ const FriendsList = (props) => {
                 ? 
                 <EditFriend/>
                 : 
-                <AddFriend 
-                setFriends={setFriends}
-                />}
+                <AddFriend/>}
             </div>
     )
 }

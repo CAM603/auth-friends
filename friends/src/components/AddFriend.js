@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { axiosWithAuth } from '../utils/axiosWithAuth'
+import { FriendsContext } from '../contexts/FriendsContext';
 
 const AddFriend = (props) => {
-    
+    const { value2 } = useContext(FriendsContext);
+    const [friends, setFriends] = value2;
     const [friend, setFriend] = useState({
         name: '',
         age: '',
@@ -22,11 +24,12 @@ const AddFriend = (props) => {
         axiosWithAuth()
         .post('friends', friend)
         .then(res => {
-            props.setFriends(res.data)
+            setFriends(res.data)
             setFriend({
                 name: '',
                 age: '',
-                email: ''
+                email: '',
+                picture: ''
             })
         })
         .catch(err => console.log(err))
