@@ -22,6 +22,7 @@ const Friend = (props) => {
             <p>{friend.name}</p>
             <p>{friend.age}</p>
             <p>{friend.email}</p>
+            <p>{friend.picture}</p>
         </div>
     )
 }
