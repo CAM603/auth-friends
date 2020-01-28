@@ -8,7 +8,7 @@ const FriendsList = (props) => {
     const [friends, setFriends] = useState([]);
     const [loading, setLoading] = useState(false);
     const [editing, setEditing] = useState(false);
-    const initialState = {id: null, name: '', age: '', email: ''}
+    const initialState = {id: null, name: '', age: '', email: '', picture: ''}
     const [currentFriend, setCurrentFriend] = useState(initialState)
     
     
@@ -50,7 +50,7 @@ const FriendsList = (props) => {
     }
     const editFriend = friend => {
         setEditing(true);
-        setCurrentFriend({id: friend.id, name: friend.name, age: friend.age, email: friend.email})
+        setCurrentFriend({id: friend.id, name: friend.name, age: friend.age, email: friend.email, picture: friend.picture})
     }
 
     return (
@@ -63,6 +63,7 @@ const FriendsList = (props) => {
                     </Link>
                     <p>{friend.age}</p>
                     <p>{friend.email}</p>
+                    <p>{friend.picture}</p>
                     <button onClick={() => deleteFriend(friend.id)}>Delete</button>
                     <button onClick={() => editFriend(friend)}>Edit</button>
                 </div>

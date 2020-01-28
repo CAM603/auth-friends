@@ -6,7 +6,8 @@ const AddFriend = (props) => {
     const [friend, setFriend] = useState({
         name: '',
         age: '',
-        email: ''
+        email: '',
+        picture: ''
     })
 
     const handleChanges = (event) => {
@@ -54,6 +55,13 @@ const AddFriend = (props) => {
                 placeholder="email"
                 onChange={handleChanges}
                 name="email"
+                />
+                <input
+                type="text"
+                value={friend.picture}
+                placeholder="picture"
+                onChange={handleChanges}
+                name="picture"
                 />
                 <button>Add</button>
             </form>

@@ -36,6 +36,12 @@ const EditFriend = (props) => {
                 value={friend.email}
                 name="email"
                 />
+                <input
+                placeholder={friend.picture}
+                onChange={handleChanges}
+                value={friend.picture}
+                name="picture"
+                />
                 <button>Update</button>
             </form>
         </div>

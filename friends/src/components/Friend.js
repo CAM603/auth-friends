@@ -3,10 +3,10 @@ import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const Friend = (props) => {
     const [friend, setFriend] = useState({})
-    console.log(friend)
+    
     useEffect(() => {
         getFriend(props.match.params.id)
-    },[])
+    },[props.match.params.id])
 
     const getFriend = (id) => {
         axiosWithAuth()
