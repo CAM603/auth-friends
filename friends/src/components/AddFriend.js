@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 const AddFriend = (props) => {
@@ -33,39 +35,47 @@ const AddFriend = (props) => {
     }
     
     return (
-        <div>
+        <div className="form">
             <h1>Add Friend</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                type="text"
-                value={friend.name}
-                placeholder="name"
-                onChange={handleChanges}
-                name="name"
-                />
-                <input
-                type="text"
-                value={friend.age}
-                placeholder="age"
-                onChange={handleChanges}
-                name="age"
-                />
-                <input
-                type="text"
-                value={friend.email}
-                placeholder="email"
-                onChange={handleChanges}
-                name="email"
-                />
-                <input
-                type="text"
-                value={friend.picture}
-                placeholder="picture"
-                onChange={handleChanges}
-                name="picture"
-                />
-                <button>Add</button>
-            </form>
+            <Form onSubmit={handleSubmit}>
+                <FormGroup>
+                    <Input
+                    type="text"
+                    value={friend.name}
+                    placeholder="name"
+                    onChange={handleChanges}
+                    name="name"
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Input
+                    type="text"
+                    value={friend.age}
+                    placeholder="age"
+                    onChange={handleChanges}
+                    name="age"
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Input
+                    type="text"
+                    value={friend.email}
+                    placeholder="email"
+                    onChange={handleChanges}
+                    name="email"
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Input
+                    type="text"
+                    value={friend.picture}
+                    placeholder="picture"
+                    onChange={handleChanges}
+                    name="picture"
+                    />
+                </FormGroup>
+                <Button>Add</Button>
+            </Form>
         </div>
     )
 }

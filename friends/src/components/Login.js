@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
+import { Button, Form, FormGroup, Input } from 'reactstrap';
+
 const Login = (props) => {
     const [loading, setLoading] = useState(false);
     const [credentials, setCredentials] = useState({
@@ -35,26 +37,30 @@ const Login = (props) => {
     }
 
     return (
-        <div>
+        <div className="form">
             <h1>Login</h1>
             <div>
-                <form onSubmit={login}>
-                    <input 
-                    type="text"
-                    placeholder="username"
-                    name="username"
-                    value={credentials.username}
-                    onChange={handleChanges}
-                    />
-                    <input 
-                    type="password"
-                    placeholder="password"
-                    name="password"
-                    value={credentials.password}
-                    onChange={handleChanges}
-                    />
-                    <button>{loading ? 'loading' : 'Submit!'}</button>
-                </form>
+                <Form onSubmit={login}>
+                    <FormGroup>
+                        <Input 
+                        type="text"
+                        placeholder="username"
+                        name="username"
+                        value={credentials.username}
+                        onChange={handleChanges}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Input 
+                        type="password"
+                        placeholder="password"
+                        name="password"
+                        value={credentials.password}
+                        onChange={handleChanges}
+                        />
+                    </FormGroup>
+                    <Button color="primary">{loading ? 'loading' : 'Submit!'}</Button>
+                </Form>
             </div>
         </div>
     )
