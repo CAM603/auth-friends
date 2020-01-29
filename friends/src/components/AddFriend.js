@@ -74,7 +74,7 @@ const AddFriend = (props) => {
                     name="picture"
                     />
                 </FormGroup>
-                <Button>Add</Button>
+                <Button color="success">Add</Button>
             </Form>
         </div>
     )

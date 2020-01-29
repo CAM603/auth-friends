@@ -7,3 +7,28 @@
   flex-direction: column;
   align-items: center;
 }
+
+.login {
+  height: 400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.friend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+.friends {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.friends-list {
+  width: 60%;
+}

@@ -14,7 +14,7 @@ const EditFriend = (props) => {
     
     return (
         <div className="form">
-            <h1>Edit Friend</h1>
+            <h1>{friend.name}</h1>
             <Form onSubmit={(event) => {
                 event.preventDefault()
                 props.updatedFriend(friend.id, friend)

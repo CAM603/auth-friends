@@ -37,9 +37,9 @@ const Login = (props) => {
     }
 
     return (
-        <div className="form">
+        <div className="login">
             <h1>Login</h1>
-            <div>
+            <div className="form">
                 <Form onSubmit={login}>
                     <FormGroup>
                         <Input 

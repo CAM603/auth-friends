@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
+import { Toast, ToastBody, ToastHeader, Spinner } from 'reactstrap';
+
 const Friend = (props) => {
     const [friend, setFriend] = useState({})
     
@@ -18,11 +20,17 @@ const Friend = (props) => {
     }
     
     return (
-        <div>
-            <p>{friend.name}</p>
-            <p>{friend.age}</p>
-            <p>{friend.email}</p>
-            <p>{friend.picture}</p>
+        <div className="friend">
+            <Toast>
+                <ToastBody>
+                    <ToastHeader icon="success">{friend.name}</ToastHeader>
+                    <ToastBody>
+                    <p style={{fontSize: '3rem'}}>{friend.picture}</p>
+                    <h2>Age: {friend.age}</h2>
+                    <h5>Contact: {friend.email}</h5>
+                    </ToastBody>
+                </ToastBody>
+            </Toast>
         </div>
     )
 }

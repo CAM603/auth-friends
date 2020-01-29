@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import AddFriend from './AddFriend';
 import EditFriend from './EditFriend';
 
+import { Toast, ToastBody, ToastHeader, Button, Spinner } from 'reactstrap';
+
 const FriendsList = (props) => {
     const [friends, setFriends] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -54,20 +56,28 @@ const FriendsList = (props) => {
     }
 
     return (
-        <div>
-            <h1>Gang's all here</h1>
-            {loading ? <h1>Loading...</h1> : friends.map(friend => (
-                <div key={friend.id}>
-                    <Link to={`friendsList/${friend.id}`}>
-                        <p>{friend.name}</p>
-                    </Link>
-                    <p>{friend.age}</p>
-                    <p>{friend.email}</p>
-                    <p>{friend.picture}</p>
-                    <button onClick={() => deleteFriend(friend.id)}>Delete</button>
-                    <button onClick={() => editFriend(friend)}>Edit</button>
-                </div>
-            ))}
+        <div className="friends">
+            <div className="friends-list">
+                {loading ? <Spinner type="grow" color="info">Loading...</Spinner> : friends.map(friend => (
+                    <Toast key={friend.id}>
+                        <Link to={`friendsList/${friend.id}`}>
+                            <ToastHeader icon="success">{friend.name}</ToastHeader>
+                        </Link>
+                        <ToastBody>
+                            <p style={{fontSize: '2rem'}}>{friend.picture}</p>
+                            <div>
+                                <Button
+                                outline color="danger" 
+                                onClick={() => deleteFriend(friend.id)}>Delete</Button>
+                                {' '}
+                                <Button 
+                                outline color="primary" 
+                                onClick={() => editFriend(friend)}>Edit</Button>
+                            </div>
+                        </ToastBody>
+                    </Toast>
+                ))}
+            </div>
             {editing 
             ? 
             <EditFriend 
@@ -78,8 +88,6 @@ const FriendsList = (props) => {
             />
             : 
             <AddFriend setFriends={setFriends}/>}
-            
-            
         </div>
     )
 }
