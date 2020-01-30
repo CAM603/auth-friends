@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-import { axiosWithAuth } from '../utils/axiosWithAuth'
+import { addFriends } from '../actions/addFriendsAction';
 
 const AddFriend = (props) => {
     const [friend, setFriend] = useState({
@@ -18,18 +19,13 @@ const AddFriend = (props) => {
     }
     const handleSubmit = event => {
         event.preventDefault()
-        axiosWithAuth()
-        .post('friends', friend)
-        .then(res => {
-            props.setFriends(res.data)
-            setFriend({
-                name: '',
-                age: '',
-                email: '',
-                picture: ''
-            })
+        props.addFriends(friend)
+        setFriend({
+            name: '',
+            age: '',
+            email: '',
+            picture: ''
         })
-        .catch(err => console.log(err))
     }
     
     return (
@@ -69,5 +65,9 @@ const AddFriend = (props) => {
         </div>
     )
 }
+const mapStateToProps = state => {
+    return {
 
-export default AddFriend;
+    }
+}
+export default connect(mapStateToProps, {addFriends})(AddFriend);
