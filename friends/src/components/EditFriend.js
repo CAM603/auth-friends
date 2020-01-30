@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
+import { updateFriend } from '../actions/editFriendsAction'
 
 const EditFriend = (props) => {
-    const [friend, setFriend] = useState(props.currentFriend)
+    const [friend, setFriend] = useState(props.friend)
     
 
     const handleChanges = (event) => {
@@ -16,7 +19,7 @@ const EditFriend = (props) => {
             <h1>Edit Friend</h1>
             <form onSubmit={(event) => {
                 event.preventDefault()
-                props.updatedFriend(friend.id, friend)
+                props.updateFriend(friend)
             }}>
                 <input
                 placeholder={friend.name}
@@ -47,5 +50,9 @@ const EditFriend = (props) => {
         </div>
     )
 }
-
-export default EditFriend;
+const mapStateToProps = state => {
+    return {
+        friend: state.friendsReducer.currentFriend
+    }
+}
+export default connect(mapStateToProps, {updateFriend})(EditFriend);
