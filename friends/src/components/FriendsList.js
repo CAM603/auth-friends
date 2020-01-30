@@ -5,6 +5,7 @@ import EditFriend from './EditFriend';
 import { connect } from 'react-redux';
 
 import { fetchFriends } from '../actions/fetchFriendsAction';
+import { deleteFriends } from '../actions/deleteFriendsAction';
 
 const FriendsList = (props) => {
     
@@ -17,15 +18,9 @@ const FriendsList = (props) => {
         props.fetchFriends()
     },[])
 
-    // const deleteFriend = (id) => {
-    //     axiosWithAuth()
-    //     .delete(`/friends/${id}`)
-    //     .then(res => {
-    //         setFriends(res.data)
-    //     })
-    //     .catch(err => console.log(err))
-    // }
-
+    const deleteFriends = (id) => {
+        props.deleteFriends(id)
+    }
     // const updatedFriend = (id, updatedFriend) => {
     //     setEditing(false)
     //     axiosWithAuth()
@@ -51,8 +46,8 @@ const FriendsList = (props) => {
                     <p>{friend.age}</p>
                     <p>{friend.email}</p>
                     <p>{friend.picture}</p>
-                    {/* <button onClick={() => deleteFriend(friend.id)}>Delete</button>
-                    <button onClick={() => editFriend(friend)}>Edit</button> */}
+                    <button onClick={() => deleteFriends(friend.id)}>Delete</button>
+                    {/* <button onClick={() => editFriend(friend)}>Edit</button> */}
                 </div>
             ))}
             {props.editing 
@@ -76,7 +71,8 @@ const mapStateToProps = state => {
     return {
         friends: state.friendsReducer.friends,
         loading: state.friendsReducer.loading,
-        editing: state.friendsReducer.editing
+        editing: state.friendsReducer.editing,
+        deleting: state.friendsReducer.deleting
     }
 }
-export default connect(mapStateToProps, {fetchFriends})(FriendsList);
+export default connect(mapStateToProps, {fetchFriends, deleteFriends})(FriendsList);
